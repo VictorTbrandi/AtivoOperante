@@ -1,5 +1,4 @@
 package unoeste.fipp.ativooperante_be.entities;
-
 import jakarta.persistence.*;
 
 @Entity

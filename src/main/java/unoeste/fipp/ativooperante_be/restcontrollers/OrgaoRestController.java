@@ -1,5 +1,4 @@
 package unoeste.fipp.ativooperante_be.restcontrollers;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,7 @@ import java.util.List;
 @RequestMapping("apis/orgao")
 public class OrgaoRestController {
     @Autowired
-    OrgaoService orgaoService;
+    private OrgaoService orgaoService;
 
     @GetMapping
     public ResponseEntity<Object> getAll(){
