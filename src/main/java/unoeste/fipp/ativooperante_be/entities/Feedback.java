@@ -10,18 +10,17 @@ public class Feedback {
     private Long id;
     @Column(name="fee_texto")
     private String texto;
-    @ManyToOne
-    @JoinColumn(name = "den_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "den_id", unique = true)
     private Denuncia denuncia;
 
-    public Feedback(Long id, String texto, Denuncia denuncia) {
+    public Feedback(Long id, String texto) {
         this.id = id;
         this.texto = texto;
-        this.denuncia = denuncia;
     }
 
     public Feedback() {
-        this(0L, "", null);
+        this(0L, "");
     }
 
     public Long getId() {
@@ -38,13 +37,5 @@ public class Feedback {
 
     public void setTexto(String texto) {
         this.texto = texto;
-    }
-
-    public Denuncia getDenuncia() {
-        return denuncia;
-    }
-
-    public void setDenuncia(Denuncia denuncia) {
-        this.denuncia = denuncia;
     }
 }

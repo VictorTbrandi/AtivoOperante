@@ -27,6 +27,8 @@ public class Denuncia {
     @JoinColumn(name = "usu_id", nullable = false)
     private Usuario usuario;
 
+    @OneToOne(mappedBy = "denuncia")
+    private Feedback feedback;
 
     public Denuncia(Long id, String titulo, String texto, int urgencia, Orgaos orgaos, LocalDate data, Tipo tipo, Usuario usuario) {
         this.id = id;
@@ -105,5 +107,13 @@ public class Denuncia {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Feedback getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(Feedback feedback) {
+        this.feedback = feedback;
     }
 }

@@ -25,7 +25,7 @@ public class UsurioRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getTipo(@PathVariable(value = "id") Long id){
+    public ResponseEntity<Object> getUsuario(@PathVariable(value = "id") Long id){
         Usuario usuario = usuarioService.getUsuarioID(id);
         if(usuario != null)
             return ResponseEntity.ok(usuario);

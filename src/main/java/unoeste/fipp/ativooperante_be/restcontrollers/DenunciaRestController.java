@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unoeste.fipp.ativooperante_be.entities.Denuncia;
 import unoeste.fipp.ativooperante_be.entities.Erro;
+import unoeste.fipp.ativooperante_be.entities.Feedback;
 import unoeste.fipp.ativooperante_be.services.DenunciaService;
 import java.util.List;
 
@@ -16,7 +17,6 @@ public class DenunciaRestController {
     @GetMapping
     public ResponseEntity<Object> getAll(){
         List<Denuncia> denunciaList = denunciaService.getAll();
-
         if (!denunciaList.isEmpty())
             return ResponseEntity.ok(denunciaList);
         return ResponseEntity.badRequest().body(
@@ -60,9 +60,17 @@ public class DenunciaRestController {
 
     @GetMapping("/usuario/{id}")
     public ResponseEntity<Object> getDenunciasPorUsuario(@PathVariable(value = "id") Long id){
-        List<Denuncia> denuncias = denunciaService.getDenunciasPorUsuario(id);
-        if (!denuncias.isEmpty())
+        List<Denuncia> denuncias = denunciaService.getDenunciasUsuario(id);
+        if(!denuncias.isEmpty())
             return ResponseEntity.ok(denuncias);
-        return ResponseEntity.badRequest().body(new Erro("Nenhuma denúncia encontrada para o usuário"));
+        else
+            return ResponseEntity.badRequest().body(new Erro("Usuário não possui denúncias"));
+    }
+
+    @GetMapping("add-feedback/{id}/{texto}")
+    public ResponseEntity<Object> addFeedBack(@PathVariable Long id,@PathVariable String texto){
+        if (denunciaService.addFeedBack(new Feedback(id,texto)))
+            return  ResponseEntity.noContent().build();
+        return ResponseEntity.badRequest().body("Não foi possível adicionar o feedback");
     }
 }
