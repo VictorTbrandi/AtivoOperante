@@ -9,7 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import unoeste.fipp.ativooperante_be.entities.Usuario;
 import unoeste.fipp.ativooperante_be.services.OurUserDetailsService;
+import unoeste.fipp.ativooperante_be.services.OurUserDetails;
 import unoeste.fipp.ativooperante_be.util.JwtUtil;
 
 import java.util.HashMap;
@@ -44,8 +46,22 @@ public class AuthRestController {
 
         final String jwt = jwtUtil.generateToken(userDetails);
 
-        Map<String, String> response = new HashMap<>();
+        Usuario usuario = null;
+        if (userDetails instanceof OurUserDetails) {
+            usuario = ((OurUserDetails) userDetails).getUsuario();
+        }
+
+        Map<String, Object> response = new HashMap<>();
         response.put("jwt", jwt);
+
+        if (usuario != null) {
+            Map<String, Object> userData = new HashMap<>();
+            userData.put("id", usuario.getId());
+            userData.put("cpf", usuario.getCpf());
+            userData.put("email", usuario.getEmail());
+            userData.put("nivel", usuario.getNivel());
+            response.put("user", userData);
+        }
 
         return ResponseEntity.ok(response);
     }
