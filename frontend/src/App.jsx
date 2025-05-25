@@ -1,10 +1,13 @@
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import AppRoutes from "./AppRoutes"; // Importe o componente de rotas
+import { UserProvider } from "./contexts/UserContext"; // Importe o UserProvider
 
-import routes, { renderRoutes } from './routes';
-
-const App = () => {
-  return <BrowserRouter basename={import.meta.env.VITE_APP_BASE_NAME}>{renderRoutes(routes)}</BrowserRouter>;
-};
+function App() {
+    return (
+        // Envolve as rotas com o UserProvider
+        <UserProvider>
+            <AppRoutes />
+        </UserProvider>
+    );
+}
 
 export default App;
