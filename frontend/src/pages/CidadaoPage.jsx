@@ -70,7 +70,7 @@ const CidadaoPage = () => {
                 }
 
                 const data = await response.json();
-                setDenuncias(data);
+                setDenuncias(data.reverse());
             } catch (err) {
                 console.error("Erro ao buscar denúncias:", err);
                 setErrorDenuncias(

@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import useUser from "../hooks/useUser";
 import { API_BASE_URL } from "../utils/contants";
+import { toast } from "react-toastify";
 
 const CadastroDenunciaPage = () => {
     const navigate = useNavigate();
@@ -113,31 +114,42 @@ const CadastroDenunciaPage = () => {
 
         console.log("Enviando denúncia:", denunciaData);
 
-        // try {
-        //     const response = await fetch(`${API_BASE_URL}/denuncia`, {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //             Authorization: `Bearer ${localStorage.getItem("token")}`,
-        //         },
-        //         body: JSON.stringify(denunciaData),
-        //     });
+        try {
+            const response = await fetch(`${API_BASE_URL}/denuncia`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: JSON.stringify(denunciaData),
+            });
 
-        //     if (!response.ok) {
-        //         const errorText = await response.text();
-        //         throw new Error(
-        //             `Erro ao enviar denúncia: ${response.status} ${response.statusText} - ${errorText}`
-        //         );
-        //     }
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(
+                    `Erro ao enviar denúncia: ${response.status} ${response.statusText} - ${errorText}`
+                );
+            }
 
-        //     const result = await response.json();
-        //     console.log("Denúncia enviada com sucesso:", result);
-        // } catch (err) {
-        //     console.error("Erro no envio da denúncia:", err);
-        //     setError(`Falha ao enviar denúncia: ${err.message}`);
-        // } finally {
-        //     setLoadingSubmit(false);
-        // }
+            const result = await response.json();
+            toast.success("Denúncia criada com sucesso", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+            });
+            navigate("/cidadao");
+            console.log("Denúncia enviada com sucesso:", result);
+        } catch (err) {
+            console.error("Erro no envio da denúncia:", err);
+            setError(`Falha ao enviar denúncia: ${err.message}`);
+        } finally {
+            setLoadingSubmit(false);
+        }
     };
 
     if (loadingData) {
