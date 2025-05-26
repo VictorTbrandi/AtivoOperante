@@ -29,7 +29,6 @@ const CadastroDenunciaPage = () => {
     const [loadingData, setLoadingData] = useState(true);
     const [loadingSubmit, setLoadingSubmit] = useState(false);
     const [error, setError] = useState(null);
-
     useEffect(() => {
         async function init() {
             setLoadingData(true);
@@ -292,20 +291,33 @@ const CadastroDenunciaPage = () => {
                                     </Form.Control>
                                 </Form.Group>
 
-                                <Button
-                                    variant="primary"
-                                    type="submit"
-                                    className="w-100 mt-3"
-                                    disabled={loadingSubmit}
-                                >
-                                    {loadingSubmit ? (
-                                        <Spinner animation="border" size="sm" />
-                                    ) : (
-                                        "Enviar Denúncia"
-                                    )}
-                                </Button>
+                                <Row className="mt-3">
+                                    <Col className="d-flex justify-content-start">
+                                        <Button
+                                            variant="danger"
+                                            onClick={() => navigate("/cidadao")}
+                                        >
+                                            Cancelar
+                                        </Button>
+                                    </Col>
+                                    <Col className="d-flex justify-content-end">
+                                        <Button
+                                            variant="primary"
+                                            type="submit"
+                                            disabled={loadingSubmit}
+                                        >
+                                            {loadingSubmit ? (
+                                                <Spinner
+                                                    animation="border"
+                                                    size="sm"
+                                                />
+                                            ) : (
+                                                "Enviar Denúncia"
+                                            )}
+                                        </Button>
+                                    </Col>
+                                </Row>
                             </Form>
-                            <div className="text-center mt-3"></div>
                             {error && loadingSubmit === false && (
                                 <Alert variant="danger" className="mt-3">
                                     {error}
