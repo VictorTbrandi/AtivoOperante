@@ -41,11 +41,15 @@ public class SecurityConfig {
                         .requestMatchers("/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/apis/usuario").permitAll()
 
-                        .requestMatchers("/apis/orgao/**").hasRole("ADMIN")
-                        .requestMatchers("/apis/tipo/**").hasRole("ADMIN")
-                        .requestMatchers("/apis/denuncia").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/apis/denuncia").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/apis/denuncia/{id}").hasRole("ADMIN")
                         .requestMatchers("/apis/denuncia/add-feedback/**").hasRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.GET, "/apis/orgao/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.GET, "/apis/tipo/**").hasAnyRole("ADMIN", "USER")
+
+                        .requestMatchers("/apis/orgao/**").hasRole("ADMIN")
+                        .requestMatchers("/apis/tipo/**").hasRole("ADMIN")
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/apis/usuario/{id}").hasRole("ADMIN")
                         .requestMatchers("/apis/usuario/").hasRole("ADMIN")
 
