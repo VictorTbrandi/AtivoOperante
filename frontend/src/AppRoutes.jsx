@@ -8,6 +8,8 @@ import CidadaoPage from "./pages/CidadaoPage";
 import AdminPage from "./pages/AdminPage";
 import CadastroDenunciaPage from "./pages/CadastroDenunciaPage";
 import LoadingPage from "./pages/LoadingPage";
+import TipoProblemaPage from "./pages/TipoProblemaPage";
+import OrgaoPage from "./pages/OrgaoPage";
 
 const AppRoutes = () => {
     return (
@@ -23,6 +25,8 @@ const AppRoutes = () => {
                 {/* Rotas Protegidas (Exemplo, você precisará adicionar Guards depois) */}
                 <Route path="/cidadao" element={<CidadaoPage />} />
                 <Route path="/admin" element={<AdminPage />} />
+                <Route path="/tipo" element={<TipoProblemaPage />} />
+                <Route path="/orgao" element={<OrgaoPage />} />
                 <Route
                     path="/cidadao-cadastro-denuncia"
                     element={<CadastroDenunciaPage />}
